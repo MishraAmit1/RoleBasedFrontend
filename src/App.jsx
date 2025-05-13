@@ -49,7 +49,7 @@ function OAuthHandler() {
           console.log(`Redirecting to dashboard with role: ${user.role}`);
           window.location.href = "/dashboard";
         } else {
-          console.log("Redirecting to role-selection");
+          console.log("Redirecting to role-selection (no role)");
           window.location.href = "/role-selection";
         }
       } catch (error) {
