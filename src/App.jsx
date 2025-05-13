@@ -3,6 +3,7 @@ import {
   Routes,
   Route,
   Navigate,
+  useLocation,
 } from "react-router-dom";
 import LoginPage from "./components/LoginPage";
 import RoleSelectionPage from "./components/RoleSelectionPage";
@@ -10,40 +11,40 @@ import Dashboard from "./components/Dashboard";
 import RequireAuth from "./components/RequireAuth";
 import { useEffect } from "react";
 
-function App() {
+function OAuthHandler() {
+  const location = useLocation();
+
   useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search);
+    console.log("OAuthHandler useEffect running");
+    console.log("Current URL:", window.location.href);
+    console.log("Current path:", location.pathname);
+
+    const searchParams = new URLSearchParams(location.search);
     const token = searchParams.get("token");
     const userStr = searchParams.get("user");
 
+    console.log("Search params:", searchParams.toString());
+    console.log("Token:", token);
+    console.log("User string:", userStr);
+
     if (token && userStr) {
       console.log("OAuth redirect detected");
-      console.log("Token:", token);
-      console.log("User string:", userStr);
-
       try {
         const user = JSON.parse(decodeURIComponent(userStr));
         console.log("Parsed user:", user);
 
-        // Validate user object
         if (!user.id || !user.email) {
           console.error("Invalid user data:", user);
           window.location.href = "/login";
           return;
         }
 
-        // Store in localStorage
         localStorage.setItem("auth_token", token);
         localStorage.setItem("user", JSON.stringify(user));
 
-        // Clear URL params
-        window.history.replaceState(
-          {},
-          document.title,
-          window.location.pathname
-        );
+        console.log("Clearing URL params");
+        window.history.replaceState({}, document.title, location.pathname);
 
-        // Redirect based on role
         if (user.role && ["admin", "guest"].includes(user.role)) {
           console.log(`Redirecting to dashboard with role: ${user.role}`);
           window.location.href = "/dashboard";
@@ -55,13 +56,21 @@ function App() {
         console.error("Error processing OAuth redirect:", error);
         window.location.href = "/login";
       }
-    } else if (searchParams.toString()) {
-      console.warn("Unexpected URL params:", searchParams.toString());
+    } else {
+      console.log("No OAuth params found");
+      if (searchParams.toString()) {
+        console.warn("Unexpected URL params:", searchParams.toString());
+      }
     }
-  }, []);
+  }, [location]);
 
+  return null;
+}
+
+function App() {
   return (
     <Router>
+      <OAuthHandler />
       <Routes>
         <Route path="/login" element={<LoginPage />} />
         <Route

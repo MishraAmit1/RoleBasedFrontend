@@ -11,6 +11,7 @@ function Dashboard() {
   const [currentForm, setCurrentForm] = useState(null);
   const user = apiService.getUser();
   const isAdmin = user?.role === "admin";
+  console.log("Hello");
 
   const fetchForms = async () => {
     setIsLoading(true);
