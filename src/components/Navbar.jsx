@@ -1,37 +1,30 @@
-import { useNavigate } from "react-router-dom";
 import apiService from "../services/api";
+import { toast } from "react-toastify";
 
 function Navbar() {
-  const navigate = useNavigate();
   const user = apiService.getUser();
 
   const handleLogout = async () => {
-    await apiService.logout();
-    navigate("/login");
+    try {
+      await apiService.logout();
+      toast.success("Logged out successfully!");
+      window.location.href = "/login";
+    } catch (error) {
+      toast.error("Failed to logout");
+    }
   };
 
   return (
-    <nav className="bg-gray-800 p-4">
-      <div className="container mx-auto flex flex-wrap justify-between items-center">
-        <div className="flex items-center text-white">
-          <h1 className="font-bold text-xl">Role-Based App</h1>
-        </div>
-
-        <div className="flex items-center">
-          <span className="text-gray-300 mr-4">
-            {user?.role === "admin" ? (
-              <span className="bg-purple-600 px-2 py-1 rounded text-white text-sm">
-                Admin
-              </span>
-            ) : (
-              <span className="bg-green-600 px-2 py-1 rounded text-white text-sm">
-                Guest
-              </span>
-            )}
+    <nav className="bg-blue-600 text-white shadow-md">
+      <div className="container mx-auto px-4 py-3 flex justify-between items-center">
+        <h1 className="text-lg sm:text-xl font-bold">Role-Based App</h1>
+        <div className="flex items-center space-x-4">
+          <span className="text-sm sm:text-base">
+            {user ? `Hello, ${user.email}` : "Guest"}
           </span>
           <button
             onClick={handleLogout}
-            className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-md text-sm font-medium"
+            className="py-1 px-3 bg-red-500 hover:bg-red-600 text-white font-semibold rounded-lg transition duration-200 text-sm sm:text-base"
           >
             Logout
           </button>

@@ -1,28 +1,32 @@
 import apiService from "../services/api";
+import { toast } from "react-toastify";
 
 function LoginPage() {
   const handleLogin = () => {
-    console.log("Initiating Google login");
-    apiService.loginWithGoogle();
+    try {
+      apiService.loginWithGoogle();
+    } catch (error) {
+      toast.error("Failed to initiate Google login");
+    }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center mb-6">
-          Role-Based Authentication App
+    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 to-gray-100 p-4">
+      <div className="bg-white p-6 sm:p-8 rounded-xl shadow-lg w-full max-w-sm sm:max-w-md">
+        <h1 className="text-2xl sm:text-3xl font-bold text-center text-gray-800 mb-4">
+          Welcome Back
         </h1>
-        <p className="text-gray-600 mb-6 text-center">
-          Sign in with your Google account to access the application.
+        <p className="text-gray-600 text-center mb-6 text-sm sm:text-base">
+          Sign in with Google to access your role-based dashboard.
         </p>
         <button
           onClick={handleLogin}
-          className="w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition duration-200 flex items-center justify-center"
+          className="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-200 flex items-center justify-center text-sm sm:text-base"
         >
           <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
             <path
               fill="currentColor"
-              d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+              d="M22.56 12.25c0-.78-.07-1.53-.20-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
             />
             <path
               fill="currentColor"
@@ -34,7 +38,7 @@ function LoginPage() {
             />
             <path
               fill="currentColor"
-              d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
+              d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.30-4.53 6.16-4.53z"
             />
             <path fill="none" d="M1 1h22v22H1z" />
           </svg>

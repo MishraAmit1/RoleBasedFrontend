@@ -7,15 +7,10 @@ function RequireAuth({ children, requireRole = false }) {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    console.log("RequireAuth useEffect running");
     const token = apiService.getToken();
     const user = apiService.getUser();
 
-    console.log("Token:", token);
-    console.log("User:", user);
-
     if (!token) {
-      console.log("No token, redirecting to /login");
       navigate("/login");
       return;
     }
@@ -24,12 +19,10 @@ function RequireAuth({ children, requireRole = false }) {
       requireRole &&
       (!user?.role || !["admin", "guest"].includes(user.role))
     ) {
-      console.log("No valid role, redirecting to /role-selection");
       navigate("/role-selection");
       return;
     }
 
-    console.log("Authentication passed, rendering children");
     setIsLoading(false);
   }, [navigate, requireRole]);
 

@@ -70,120 +70,118 @@ function FormModal({ isOpen, onClose, onSubmit, initialData }) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-lg w-full max-w-md max-h-screen overflow-y-auto">
-        <div className="p-6">
-          <h2 className="text-xl font-bold mb-4">
-            {initialData ? "Edit Form" : "Create New Form"}
-          </h2>
+      <div className="bg-white rounded-xl shadow-lg w-full max-w-md p-6">
+        <h2 className="text-xl sm:text-2xl font-bold text-gray-800 mb-4">
+          {initialData ? "Edit Form" : "Create New Form"}
+        </h2>
 
-          <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="name"
-              >
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                  errors.name ? "border-red-500" : ""
-                }`}
-              />
-              {errors.name && (
-                <p className="text-red-500 text-xs italic">{errors.name}</p>
-              )}
-            </div>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-semibold mb-1"
+              htmlFor="name"
+            >
+              Name
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              className={`w-full py-2 px-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                errors.name ? "border-red-500" : "border-gray-300"
+              }`}
+            />
+            {errors.name && (
+              <p className="text-red-500 text-xs mt-1">{errors.name}</p>
+            )}
+          </div>
 
-            <div className="mb-4">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="address"
-              >
-                Address
-              </label>
-              <textarea
-                id="address"
-                name="address"
-                value={formData.address}
-                onChange={handleChange}
-                className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                  errors.address ? "border-red-500" : ""
-                }`}
-                rows="3"
-              />
-              {errors.address && (
-                <p className="text-red-500 text-xs italic">{errors.address}</p>
-              )}
-            </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-semibold mb-1"
+              htmlFor="address"
+            >
+              Address
+            </label>
+            <textarea
+              id="address"
+              name="address"
+              value={formData.address}
+              onChange={handleChange}
+              className={`w-full py-2 px-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                errors.address ? "border-red-500" : "border-gray-300"
+              }`}
+              rows="3"
+            />
+            {errors.address && (
+              <p className="text-red-500 text-xs mt-1">{errors.address}</p>
+            )}
+          </div>
 
-            <div className="mb-4">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="pin"
-              >
-                PIN (6 digits)
-              </label>
-              <input
-                type="text"
-                id="pin"
-                name="pin"
-                value={formData.pin}
-                onChange={handleChange}
-                className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                  errors.pin ? "border-red-500" : ""
-                }`}
-                maxLength="6"
-              />
-              {errors.pin && (
-                <p className="text-red-500 text-xs italic">{errors.pin}</p>
-              )}
-            </div>
+          <div className="mb-4">
+            <label
+              className="block text-gray-700 text-sm font-semibold mb-1"
+              htmlFor="pin"
+            >
+              PIN (6 digits)
+            </label>
+            <input
+              type="text"
+              id="pin"
+              name="pin"
+              value={formData.pin}
+              onChange={handleChange}
+              className={`w-full py-2 px-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                errors.pin ? "border-red-500" : "border-gray-300"
+              }`}
+              maxLength="6"
+            />
+            {errors.pin && (
+              <p className="text-red-500 text-xs mt-1">{errors.pin}</p>
+            )}
+          </div>
 
-            <div className="mb-6">
-              <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                htmlFor="phone"
-              >
-                Phone Number (10 digits)
-              </label>
-              <input
-                type="text"
-                id="phone"
-                name="phone"
-                value={formData.phone}
-                onChange={handleChange}
-                className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                  errors.phone ? "border-red-500" : ""
-                }`}
-                maxLength="10"
-              />
-              {errors.phone && (
-                <p className="text-red-500 text-xs italic">{errors.phone}</p>
-              )}
-            </div>
+          <div className="mb-6">
+            <label
+              className="block text-gray-700 text-sm font-semibold mb-1"
+              htmlFor="phone"
+            >
+              Phone Number (10 digits)
+            </label>
+            <input
+              type="text"
+              id="phone"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              className={`w-full py-2 px-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                errors.phone ? "border-red-500" : "border-gray-300"
+              }`}
+              maxLength="10"
+            />
+            {errors.phone && (
+              <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
+            )}
+          </div>
 
-            <div className="flex justify-end space-x-2">
-              <button
-                type="button"
-                onClick={onClose}
-                className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              >
-                {initialData ? "Update" : "Submit"}
-              </button>
-            </div>
-          </form>
-        </div>
+          <div className="flex justify-end space-x-2">
+            <button
+              type="button"
+              onClick={onClose}
+              className="py-2 px-4 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold rounded-lg transition duration-200"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-200"
+            >
+              {initialData ? "Update" : "Submit"}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );
