@@ -21,11 +21,33 @@ function App() {
         // Extract token from URL
         const token = new URLSearchParams(window.location.search).get("token");
         const userStr = new URLSearchParams(window.location.search).get("user");
-        const user = JSON.parse(decodeURIComponent(userStr));
+
+        console.log("Received token:", token);
+        console.log("Received user string:", userStr);
+
+        if (!token || !userStr) {
+          console.error("Missing token or user data in URL");
+          window.location.href = "/login";
+          return;
+        }
+
+        let user;
+        try {
+          user = JSON.parse(decodeURIComponent(userStr));
+        } catch (parseError) {
+          console.error("Error parsing user data:", parseError);
+          window.location.href = "/login";
+          return;
+        }
+
+        console.log("Parsed user object:", user);
 
         // Store auth info
         localStorage.setItem("auth_token", token);
         localStorage.setItem("user", JSON.stringify(user));
+
+        // Clear the URL params to prevent issues on refresh
+        window.history.replaceState({}, document.title, "/");
 
         // If user has role, go to dashboard, otherwise to role selection
         if (user.role) {
