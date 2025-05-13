@@ -1,12 +1,30 @@
-# React + Vite
+# Role-Based Authentication App (Frontend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A mobile-friendly web application with role-based authentication, built with React, Tailwind CSS, and React Toastify. Users sign in via Google OAuth, select a role (Admin/Guest), and access a dashboard with role-specific features (CRUD for Admins, read-only for Guests).
 
-Currently, two official plugins are available:
+## Live Demo
+- **URL**: https://role-based-frontend-plum.vercel.app
+- **Test Accounts**:
+  - Use any Gmail account for login.
+  - New users: Select "Admin" or "Guest" role.
+  - Existing Admin: `akmmishra1510@gmail.com` (role: admin).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
+- **Google OAuth**: Secure sign-in with Gmail.
+- **Role Selection**: New users choose between Admin or Guest roles.
+- **Dashboard**:
+  - **Admin**: Create, read, update, delete forms (Name, Address, PIN, Phone Number).
+  - **Guest**: View forms created by Admins.
+- **UI/UX**: Clean, mobile-responsive design with Tailwind CSS and React Toastify notifications.
+- **Logout**: Securely ends the session.
 
-## Expanding the ESLint configuration
+## Tech Stack
+- **Frontend**: React, React Router, Tailwind CSS, React Toastify
+- **Deployment**: Vercel
+- **Backend API**: Node.js (see backend repo)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Setup Instructions
+1. **Clone the repo**:
+   ```bash
+   git clone https://github.com/<your-username>/role-based-frontend.git
+   cd role-based-frontend
