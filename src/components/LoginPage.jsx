@@ -2,6 +2,7 @@ import apiService from "../services/api";
 
 function LoginPage() {
   const handleLogin = () => {
+    console.log("Initiating Google login");
     apiService.loginWithGoogle();
   };
 
