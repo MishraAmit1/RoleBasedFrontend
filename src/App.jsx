@@ -11,54 +11,52 @@ import RequireAuth from "./components/RequireAuth";
 import { useEffect } from "react";
 
 function App() {
-  // Handle Google OAuth redirect
   useEffect(() => {
-    const url = window.location.href;
+    const searchParams = new URLSearchParams(window.location.search);
+    const token = searchParams.get("token");
+    const userStr = searchParams.get("user");
 
-    // Check if this is a Google OAuth callback
-    if (url.includes("?token=")) {
+    if (token && userStr) {
+      console.log("OAuth redirect detected");
+      console.log("Token:", token);
+      console.log("User string:", userStr);
+
       try {
-        // Extract token from URL
-        const token = new URLSearchParams(window.location.search).get("token");
-        const userStr = new URLSearchParams(window.location.search).get("user");
+        const user = JSON.parse(decodeURIComponent(userStr));
+        console.log("Parsed user:", user);
 
-        console.log("Received token:", token);
-        console.log("Received user string:", userStr);
-
-        if (!token || !userStr) {
-          console.error("Missing token or user data in URL");
+        // Validate user object
+        if (!user.id || !user.email) {
+          console.error("Invalid user data:", user);
           window.location.href = "/login";
           return;
         }
 
-        let user;
-        try {
-          user = JSON.parse(decodeURIComponent(userStr));
-        } catch (parseError) {
-          console.error("Error parsing user data:", parseError);
-          window.location.href = "/login";
-          return;
-        }
-
-        console.log("Parsed user object:", user);
-
-        // Store auth info
+        // Store in localStorage
         localStorage.setItem("auth_token", token);
         localStorage.setItem("user", JSON.stringify(user));
 
-        // Clear the URL params to prevent issues on refresh
-        window.history.replaceState({}, document.title, "/");
+        // Clear URL params
+        window.history.replaceState(
+          {},
+          document.title,
+          window.location.pathname
+        );
 
-        // If user has role, go to dashboard, otherwise to role selection
-        if (user.role) {
+        // Redirect based on role
+        if (user.role && ["admin", "guest"].includes(user.role)) {
+          console.log(`Redirecting to dashboard with role: ${user.role}`);
           window.location.href = "/dashboard";
         } else {
+          console.log("Redirecting to role-selection");
           window.location.href = "/role-selection";
         }
       } catch (error) {
-        console.error("Error handling OAuth callback:", error);
+        console.error("Error processing OAuth redirect:", error);
         window.location.href = "/login";
       }
+    } else if (searchParams.toString()) {
+      console.warn("Unexpected URL params:", searchParams.toString());
     }
   }, []);
 
